@@ -1,18 +1,10 @@
-import React, {useState} from "react";
+import React from "react";
 import CSVReader from "react-csv-reader";
-import {CSVLink} from "react-csv";
 
-function Form(){
-    const [showResults, setShowResults] = useState(false);
-    const papaparseOptions = {
-        header: true
-    }
-     let headers = [
-         "PART_NUMBER", "SERIAL_NUMBER", "INVENTORY_DESCRIPTION", "CONDITION_CODE", "QUANTITY", "LIST_PRICE", "WAREHOUSE_NAME", "ADDRESS", "CITY", "STATE", "COUNTRY", "BIN", "LOT", "QUANTITY_RESERVED", "APPLICATION_CODE", "GROUP_CODE"
-    ];
-    let final = [];
+function Form(props){
+    const papaparseOptions = { header: true }
 
-    /* Test */
+    /* How the program should work: */
     /*
     what shouldn't merge:
         same part #, different serial #, same condition code, same warehouse
@@ -22,8 +14,12 @@ function Form(){
     what should merge:
         same part #, same serial #, same condition code
     */
+
     function readFile(file){
-        const notApplicable = ["NSN", "N/S/N", "N/A", "NV"];
+        let final = [];
+
+        const notApplicable = ["NSN", "N/S/N", "N/A", "NV", "N/S/N 1", "N/S/N 2", "N/S/N1", "NOT VISIBLE", "NSN1", "NSN2", "NV", "UMK", "UNK", "Unknown"];
+        
         for (let i = 0; i < file.length; i++) {
             /* set variables */
             let isFound = false;
@@ -50,29 +46,25 @@ function Form(){
                 final.push(file[i]);
             }
         }
-        setShowResults(true);
-        console.log(final);
+        let data = [];
+        for (let i = 0; i < final.length; i++) {
+            data[i] = {
+                PART_NUMBER: final[i].PART_NUMBER,
+                SERIAL_NUMBER: final[i].SERIAL_NUMBER,
+                INVENTORY_DESCRIPTION: final[i].INVENTORY_DESCRIPTION,
+                CONDITION_CODE: final[i].CONDITION_CODE,
+                QUANTITY: final[i].QUANTITY,
+                LIST_PRICE: final[i].LIST_PRICE,
+                WAREHOUSE_NAME: final[i].WAREHOUSE_NAME
+            }
+        }
+        console.log(data);
+        props.onComplete(final);
     }
-
-    // let data = [
-    //     {PART_NUMBER: final[0].PART_NUMBER},
-    // ]
 
     function failed(){
         console.log("fail");
     }
-
-    const Results = () => (
-        <div id="results">
-            <CSVLink
-                data={final}
-                headers={headers}
-                filename={"test" + 1 + ".csv"}
-            >
-                Download me
-            </CSVLink>
-        </div>
-    )
 
     return (
         <div>
@@ -83,9 +75,8 @@ function Form(){
                 onError = {failed}
                 parserOptions = {papaparseOptions}
                 inputId = "inventory"
-                inputStyle = {{color: 'red'}}
+                inputStyle = {{color: 'blue'}}
             />
-            {showResults ? <Results /> : null}
         </div>
     );
 }
