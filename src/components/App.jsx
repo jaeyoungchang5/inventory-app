@@ -10,11 +10,11 @@ function App(){
 
     function addItems(items){
         setData( () => {
-            let interval = 90;
+            let interval = 960;
             let result = [];
-            console.log(items.length);
-            for (let i = 0; i < items.length; i+=interval){
-                console.log(i);
+            let l = items.length;
+            console.log(l);
+            for (let i = 0; i < l; i+=interval){
                 result.push(items.splice(0, interval));
             }
             console.log(result);
@@ -27,9 +27,9 @@ function App(){
         <div>
             {/* <Header /> */}
             <Form onComplete={addItems} />
-            {data.map((item) => {
+            {data.map((item, index) => {
                 return (
-                    <Download data={item} startInd={1} endInd={4} />
+                    <Download key={index} data={item} number={index} />
                 )
             })}
             {/* <Footer /> */}
