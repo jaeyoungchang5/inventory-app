@@ -2,12 +2,12 @@
 
 This inventory app will
 1. take a csv file that has the following headers:
-> "PART_NUMBER", "SERIAL_NUMBER", "INVENTORY_DESCRIPTION", "CONDITION_CODE", "QUANTITY", "LIST_PRICE", "WAREHOUSE_NAME", "ADDRESS", "CITY", "STATE", "COUNTRY", "BIN", "LOT", "QUANTITY_RESERVED", "APPLICATION_CODE", "GROUP_CODE")
+   > "PART_NUMBER", "SERIAL_NUMBER", "INVENTORY_DESCRIPTION", "CONDITION_CODE", "QUANTITY", "LIST_PRICE", "WAREHOUSE_NAME", "ADDRESS", "CITY", "STATE", "COUNTRY", "BIN", "LOT", "QUANTITY_RESERVED", "APPLICATION_CODE", "GROUP_CODE"
 2. merge repeated data entries
     * merges the following field:
-    > "QUANTITY"
+       > "QUANTITY"
     * merges if the following fields are the same:
-    > "PART_NUMBER", "SERIAL_NUMBER", "CONDITION_CODE", "WAREHOUSE_NAME"
+       > "PART_NUMBER", "SERIAL_NUMBER", "CONDITION_CODE", "WAREHOUSE_NAME"
 3. exports the modified .csv file into chunks of 960 inventory items per .csv file
 
 ## Run the code locally
