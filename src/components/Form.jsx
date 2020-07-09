@@ -15,9 +15,14 @@ function Form(props){
         same part #, same serial #, same condition code
     */
 
+    function onlyUnique(value, index, self) {
+        return self.indexOf(value) === index;
+    }
+
     function readFile(file){
         let final = [];
-
+        let invalidCC= [];
+        const validCC = ["SV" , "NE" , "OH" , "FN" , "AR" , "RP" , "NS" , "OR" , "RD" , "EX" , "IN" , "US"];
         const notApplicable = ["NSN", "N/S/N", "N/A", "NV", "N/S/N 1", "N/S/N 2", "N/S/N1", "NOT VISIBLE", "NSN1", "NSN2", "NV", "UMK", "UNK", "Unknown"];
         
         for (let i = 0; i < file.length; i++) {
@@ -28,6 +33,10 @@ function Form(props){
             /* check if serial number is not applicable */
             if (notApplicable.includes(file[i].SERIAL_NUMBER)){
                 file[i].SERIAL_NUMBER = "";
+            }
+
+            if (!validCC.includes(file[i].CONDITION_CODE)){
+                invalidCC.push(file[i].CONDITION_CODE);
             }
             
             /* iterate through file and merge entries */
@@ -59,6 +68,7 @@ function Form(props){
             }
         }
         console.log(data);
+        console.log(invalidCC.filter(onlyUnique));
         props.onComplete(final);
     }
 
