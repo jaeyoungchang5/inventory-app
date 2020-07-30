@@ -1,6 +1,8 @@
 # Inventory App
 
-This inventory app will
+This is an Inventory Upload Assistance App built for AeroParts Now to help upload large inventories into the AeroParts Now databse. Built using React, Node.js, HTML, CSS.
+
+This app will
 1. take a csv file that has the following headers:
    > "PART_NUMBER", "SERIAL_NUMBER", "INVENTORY_DESCRIPTION", "CONDITION_CODE", "QUANTITY", "LIST_PRICE", "WAREHOUSE_NAME", "ADDRESS", "CITY", "STATE", "COUNTRY", "BIN", "LOT", "QUANTITY_RESERVED", "APPLICATION_CODE", "GROUP_CODE"
 2. merge repeated data entries
