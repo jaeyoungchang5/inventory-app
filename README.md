@@ -1,4 +1,4 @@
-# Inventory App
+# Inventory Upload Assistance App
 
 This is an Inventory Upload Assistance App built for AeroParts Now to help upload large inventories into the AeroParts Now databse. Built using React, Node.js, HTML, CSS.
 
